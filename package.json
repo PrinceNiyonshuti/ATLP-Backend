@@ -1,14 +1,28 @@
 {
-  "name": "ATLP-Backend",
-  "version": "1.0.0",
-  "description": "ATLP-7 capstone project backend for Prince",
-  "main": "index.js",
-  "author": "npprince47@gmail.com",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.5",
-    "@babel/node": "^7.16.8",
-    "@babel/preset-env": "^7.16.11"
-  }
+	"name": "ATLP-Backend",
+	"version": "1.0.0",
+	"description": "ATLP-7 capstone project backend for Prince",
+	"main": "index.js",
+	"author": "npprince47@gmail.com",
+	"license": "MIT",
+	"scripts": {
+		"start:dev": "nodemon --exec babel-node src/index.js",
+		"start": "node dist/index.js",
+		"build": "babel src --out-dir dist"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.17.6",
+		"@babel/core": "^7.17.5",
+		"@babel/node": "^7.16.8",
+		"@babel/preset-env": "^7.16.11",
+		"nodemon": "^2.0.15"
+	},
+	"dependencies": {
+		"argon2": "^0.28.5",
+		"dotenv": "^16.0.0",
+		"express": "^4.17.3",
+		"joi": "^17.6.0",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^6.2.4"
+	}
 }
