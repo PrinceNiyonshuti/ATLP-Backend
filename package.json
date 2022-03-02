@@ -1,0 +1,14 @@
+{
+  "name": "ATLP-Backend",
+  "version": "1.0.0",
+  "description": "ATLP-7 capstone project backend for Prince",
+  "main": "index.js",
+  "author": "npprince47@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11"
+  }
+}
