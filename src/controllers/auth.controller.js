@@ -2,7 +2,7 @@
 
 import User from "../db/model/user.model";
 import { hash, verify } from "../middleware/hash-password";
-import { decodeToken, signToken } from "../";
+import { decodeToken, signToken } from "../middleware/jwt";
 import { registerValidation } from "../validation/index";
 
 export const signup = async (req, res) => {
@@ -26,4 +26,25 @@ export const signup = async (req, res) => {
 	res
 		.status(201)
 		.json({ success: true, message: "User created", data: newUser });
+};
+
+export const login = async (req, res) => {
+	const { password, email } = req.body;
+
+	let user = await User.findOne({ email });
+	if (!user)
+		return res
+			.status(401)
+			.json({ success: false, message: "Invalid email or password" });
+	const isPasswordValid = await verify(user.password, password);
+	if (!isPasswordValid)
+		return res
+			.status(401)
+			.json({ success: false, message: "Invalid email or password" });
+
+	const { _id, username } = user;
+	const token = signToken(JSON.stringify({ _id, username, email: user.email }));
+	return res
+		.status(200)
+		.json({ success: true, message: "successfully logged in", token });
 };
