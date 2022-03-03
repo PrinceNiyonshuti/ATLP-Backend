@@ -48,3 +48,12 @@ export const login = async (req, res) => {
 		.status(200)
 		.json({ success: true, message: "successfully logged in", token });
 };
+
+export const userProfile = (req, res) => {
+	const bearerToken = req.headers.authorization;
+	const token = bearerToken.split(" ")[1];
+	const payload = decodeToken(token);
+	if (payload) return res.status(200).json({ success: true, data: payload });
+
+	return res.status(401).json({ success: false, message: "Not Authorized" });
+};
