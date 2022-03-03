@@ -3,6 +3,7 @@
 import User from "../db/model/user.model";
 import { hash, verify } from "../middleware/hash-password";
 import { decodeToken, signToken } from "../";
+import { registerValidation } from "../validation/index";
 
 export const signup = async (req, res) => {
 	const { error } = registerValidation(req.body);
@@ -15,7 +16,7 @@ export const signup = async (req, res) => {
 	if (user) {
 		return res.status(400).json({
 			error: true,
-			message: "Username is already in use",
+			message: "Username is already taken",
 		});
 	}
 	user = req.body;
