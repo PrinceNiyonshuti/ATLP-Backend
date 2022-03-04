@@ -4,6 +4,7 @@ import "./db";
 import express from "express";
 import queryRoutes from "./routes/query.route";
 import authRoutes from "./routes/auth.route";
+import article from "./routes/article.route";
 
 const server = express();
 
@@ -20,7 +21,7 @@ server.use(express.json());
 // route and version
 server.use("/api/v1/queries", queryRoutes);
 server.use("/api/v1/auth", authRoutes);
-
+server.use("/api/v1/articles", article);
 //port number
 const port = 5000;
 server.listen(port, () => {

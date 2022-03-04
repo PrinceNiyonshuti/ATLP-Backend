@@ -21,6 +21,16 @@ export const registerValidation = (data) => {
 		email: Joi.string().min(6).required().email(),
 		password: Joi.string().min(6).required(),
 	});
+	return schema.validate(data);
+};
 
+//New article validation
+export const articleValidation = (data) => {
+	const schema = Joi.object({
+		title: Joi.string().min(6),
+		slug: Joi.string().min(6),
+		author: Joi.string().min(6),
+		content: Joi.string().min(6),
+	});
 	return schema.validate(data);
 };
