@@ -20,6 +20,11 @@ $ yarn install
 or
 $ npm install
 ```
+## Resources Used
+
+- JWT token
+- JOI for validation
+
 
 ### starting the dev server
 ```
