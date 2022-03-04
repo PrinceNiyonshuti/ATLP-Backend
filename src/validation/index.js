@@ -24,7 +24,6 @@ export const registerValidation = (data) => {
 	return schema.validate(data);
 };
 
-
 //New article validation
 export const articleValidation = (data) => {
 	const schema = Joi.object({

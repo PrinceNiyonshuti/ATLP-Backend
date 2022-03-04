@@ -19,7 +19,6 @@ const ArticleSchema = new mongoose.Schema({
 	},
 	cover: {
 		type: String,
-		required: true,
 	},
 	createdAt: {
 		type: Date,
