@@ -8,7 +8,7 @@ To get started with service. Make sure the bellow tools are installed on your de
 
 - [X] [Nodejs](https://nodejs.org/en/) installed 
 - [X] [Mongodb](https://www.mongodb.com/) installed 
-- [X] APi testing tool. [Postman](https://www.postman.com/) recommended
+- [X] APi testing tool [Postman](https://www.postman.com/) recommended
 
 ## Running the app
 
