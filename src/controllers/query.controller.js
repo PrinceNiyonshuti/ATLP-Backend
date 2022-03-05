@@ -1,6 +1,7 @@
 /** @format */
 
 import Query from "../db/model/query.model";
+import { decodeToken } from "../middleware/jwt";
 import { queryValidation } from "../validation/index";
 
 export const saveQuery = async (req, res) => {
