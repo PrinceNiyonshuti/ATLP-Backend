@@ -41,7 +41,7 @@ export const updateArticle = async (req, res) => {
 			.json({ success: false, message: "Article not found" });
 	await Article.findByIdAndUpdate(id, updates);
 	res
-		.status(200)
+		.status(201)
 		.json({ success: true, message: "Article updated successfully" });
 };
 
@@ -55,5 +55,5 @@ export const deleteArticleById = async (req, res) => {
 	await Article.findByIdAndDelete(id);
 	res
 		.status(200)
-		.json({ success: true, message: "Article deleted", data: article });
+		.json({ success: true, message: "Article deleted", data: Null });
 };
