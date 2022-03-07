@@ -34,3 +34,15 @@ export const articleValidation = (data) => {
 	});
 	return schema.validate(data);
 };
+
+
+// New Comment validation
+export const commentValidation = (data) => {
+	const schema = Joi.object({
+		name: Joi.string().min(3).required(),
+		email: Joi.string().required().email(),
+		content: Joi.string().min(6).required(),
+	});
+
+	return schema.validate(data);
+};

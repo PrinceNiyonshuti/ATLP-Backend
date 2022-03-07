@@ -5,6 +5,7 @@ import express from "express";
 import queryRoutes from "./routes/query.route";
 import authRoutes from "./routes/auth.route";
 import article from "./routes/article.route";
+import comment from "./routes/comment.route";
 
 const server = express();
 
@@ -22,6 +23,7 @@ server.use(express.json());
 server.use("/api/v1/queries", queryRoutes);
 server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/articles", article);
+server.use("/api/v1/articles", comment);
 //port number
 const port = 5000;
 server.listen(port, () => {

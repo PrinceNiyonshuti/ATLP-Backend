@@ -1,3 +1,5 @@
+/** @format */
+
 import mongoose from "mongoose";
 
 const ArticleSchema = new mongoose.Schema({
@@ -24,6 +26,12 @@ const ArticleSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment",
+		},
+	],
 });
 const Article = mongoose.model("Article", ArticleSchema);
 export default Article;
