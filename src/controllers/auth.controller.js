@@ -25,7 +25,7 @@ export const signup = async (req, res) => {
 	newUser.save();
 	res
 		.status(201)
-		.json({ success: true, message: "User created", data: newUser });
+		.json({ status: "success", message: "User created", data: newUser });
 };
 
 export const login = async (req, res) => {
@@ -35,25 +35,25 @@ export const login = async (req, res) => {
 	if (!user)
 		return res
 			.status(401)
-			.json({ success: false, message: "Invalid email or password" });
+			.json({ status: false, message: "Invalid email or password" });
 	const isPasswordValid = await verify(user.password, password);
 	if (!isPasswordValid)
 		return res
 			.status(401)
-			.json({ success: false, message: "Invalid email or password" });
+			.json({ status: false, message: "Invalid email or password" });
 
 	const { _id, username } = user;
 	const token = signToken(JSON.stringify({ _id, username, email: user.email }));
 	return res
 		.status(200)
-		.json({ success: true, message: "successfully logged in", token });
+		.json({ status: "success", message: "successfully logged in", token });
 };
 
 export const userProfile = (req, res) => {
 	const bearerToken = req.headers.authorization;
 	const token = bearerToken.split(" ")[1];
 	const payload = decodeToken(token);
-	if (payload) return res.status(200).json({ success: true, data: payload });
+	if (payload) return res.status(200).json({ status: "success", data: payload });
 
-	return res.status(401).json({ success: false, message: "Not Authorized" });
+	return res.status(401).json({ status: "fail", message: "Not Authorized" });
 };
