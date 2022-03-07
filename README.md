@@ -10,7 +10,7 @@ To get started with service. Make sure the bellow tools are installed on your de
 
 - [x] [Nodejs](https://nodejs.org/en/) installed
 - [x] [Mongodb](https://www.mongodb.com/) installed
-- [x] APi testing tool. [Postman](https://www.postman.com/) recommended
+- [x] APi testing tool [Postman](https://www.postman.com/) recommended
 
 ## Running the app
 
@@ -23,8 +23,6 @@ $ yarn install
 or
 $ npm install
 ```
-
-### starting the dev server
 
 ## Resources Used
 
