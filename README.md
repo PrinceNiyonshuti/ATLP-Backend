@@ -26,14 +26,13 @@ $ npm install
 
 ### starting the dev server
 
-=======
 ## Resources Used
 
 - JWT token
 - JOI for validation
 
-
 ### starting the dev server
+
 ```
 $ yarn start:dev
 or
