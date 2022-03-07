@@ -8,6 +8,7 @@ export const checkAuth = (req, res, next) => {
 		const token = bearerToken.split(" ")[1];
 		const payload = decodeToken(token);
 		if (payload) return next();
+
 		return res.status(401).json({ status: "fail", message: "Not Authorized" });
 	}
 	return res
