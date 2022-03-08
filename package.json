@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start:dev": "nodemon --exec babel-node src/index.js",
-		"start": "babel-node src/index.js",
+		"start": "nodemon --exec babel-node src/index.js",
 		"build": "babel src --out-dir dist"
 	},
 	"devDependencies": {
@@ -24,5 +24,8 @@
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.2.4"
+	},
+	"engines": {
+		"node": "16.13.0"
 	}
 }
