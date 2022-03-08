@@ -1,9 +1,11 @@
-import mongoose from 'mongoose'
+/** @format */
 
-mongoose
-	.connect("mongodb://localhost:27017/ATLP-db", {
+import mongoose from "mongoose";
+import "dotenv/config";
+
+mongoose.connect(process.env.DB_CONNECTION, {
 		useNewUrlParser: true,
-		useUnifiedTopology: true,
+		// useUnifiedTopology: true,
 	})
 	.then(() => {
 		console.log("App connected to Mongodb successfully");

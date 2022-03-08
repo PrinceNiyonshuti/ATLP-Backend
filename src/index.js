@@ -6,6 +6,7 @@ import queryRoutes from "./routes/query.route";
 import authRoutes from "./routes/auth.route";
 import article from "./routes/article.route";
 import comment from "./routes/comment.route";
+import "dotenv/config";
 
 const server = express();
 
@@ -25,7 +26,7 @@ server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/articles", article);
 server.use("/api/v1/articles", comment);
 //port number
-const port = 5000;
+const port = process.env.APP_PORT;
 server.listen(port, () => {
 	console.log("Server listening on port " + port);
 });
