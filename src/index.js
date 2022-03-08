@@ -26,7 +26,7 @@ server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/articles", article);
 server.use("/api/v1/articles", comment);
 //port number
-const port = process.env.APP_PORT;
+const port = process.env.PORT;
 server.listen(port || 3000, () => {
 	console.log("Server listening on port " + port);
 });
