@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start:dev": "nodemon --exec babel-node src/index.js",
-		"start": "nodemon --exec babel-node src/index.js",
+		"start": "babel-node src/index.js",
 		"build": "babel src --out-dir dist"
 	},
 	"devDependencies": {
@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"argon2": "^0.28.5",
+		"babel-cli": "^7.17.6",
 		"dotenv": "^16.0.0",
 		"express": "^4.17.3",
 		"joi": "^17.6.0",
