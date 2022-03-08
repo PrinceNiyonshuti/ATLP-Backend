@@ -23,7 +23,8 @@
 		"express": "^4.17.3",
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^6.2.4"
+		"mongoose": "^6.2.4",
+		"@babel/node": "^7.16.8"
 	},
 	"engines": {
 		"node": "16.13.0"
