@@ -18,6 +18,7 @@ export const queryValidation = (data) => {
 export const registerValidation = (data) => {
 	const schema = Joi.object({
 		username: Joi.string().min(6),
+		role: Joi.string().min(3),
 		email: Joi.string().min(6).required().email(),
 		password: Joi.string().min(6).required(),
 	});
@@ -34,7 +35,6 @@ export const articleValidation = (data) => {
 	});
 	return schema.validate(data);
 };
-
 
 // New Comment validation
 export const commentValidation = (data) => {
