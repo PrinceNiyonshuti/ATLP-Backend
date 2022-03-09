@@ -1,12 +1,26 @@
 /** @format */
 
 import Article from "../db/model/article.model";
+import { fileUpload } from "../helpers/fileUpload";
 import { articleValidation } from "../validation/index";
 
-export const saveArticle = async (req, res) => {
+export const saveArticle = async (req, res, next) => {
 	const { error } = articleValidation(req.body);
 	if (error) return res.status(400).json({ message: error.details[0].message });
-	const article = req.body;
+	if (req.file) {
+		req.body.image = await fileUpload(req);
+	} else {
+		req.body.image =
+			"https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+	}
+	const article = {
+		cover: req.body.image,
+		title: req.body.title,
+		slug: req.body.content,
+		author: req.body.author,
+		content: req.body.author,
+		status: false,
+	};
 	const newArticle = new Article(article);
 	await newArticle.save();
 	res.status(201).json({ success: true, data: newArticle });

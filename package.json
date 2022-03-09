@@ -19,11 +19,13 @@
 	},
 	"dependencies": {
 		"argon2": "^0.28.5",
+		"cloudinary": "^1.28.1",
 		"dotenv": "^16.0.0",
 		"express": "^4.17.3",
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^6.2.4"
+		"mongoose": "^6.2.4",
+		"multer": "^1.4.4"
 	},
 	"engines": {
 		"node": "16.13.0"
