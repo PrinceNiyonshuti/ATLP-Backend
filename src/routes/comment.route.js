@@ -7,12 +7,12 @@ import {
 	deleteComment,
 } from "../controllers/comment.controller";
 
-import { checkAuth } from "../middleware/check-auth";
+import { checkAdminAuth } from "../middleware/check-auth";
 
 const router = express.Router();
 
 router.post("/:id/comment", saveComment);
 router.get("/:id/comment", getAllComments);
-router.delete("/:id", checkAuth, deleteComment);
+router.delete("/:id", checkAdminAuth, deleteComment);
 
 export default router;

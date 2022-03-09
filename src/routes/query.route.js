@@ -7,13 +7,13 @@ import {
 	getById,
 	deleteQueryById,
 } from "../controllers/query.controller";
-import { checkAuth } from "../middleware/check-auth";
+import { checkAdminAuth, checkAuth } from "../middleware/check-auth";
 
 const router = express.Router();
 
 router.post("/", saveQuery);
-router.get("/", checkAuth, getAllQueries);
-router.get("/:id", checkAuth, getById);
-router.delete("/:id", checkAuth, deleteQueryById);
+router.get("/", checkAdminAuth, getAllQueries);
+router.get("/:id", checkAdminAuth, getById);
+router.delete("/:id", checkAdminAuth, deleteQueryById);
 
 export default router;

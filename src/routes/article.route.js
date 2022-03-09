@@ -8,14 +8,14 @@ import {
 	saveArticle,
 	updateArticle,
 } from "../controllers/article.controller";
-import { checkAuth } from "../middleware/check-auth";
+import { checkAdminAuth } from "../middleware/check-auth";
 
 const router = express.Router();
 
-router.post("/", checkAuth, saveArticle);
-router.get("/", getAllArticles);
+router.post("/", checkAdminAuth, saveArticle);
+router.get("/",getAllArticles);
 router.get("/:id", getById);
-router.put("/:id", checkAuth, updateArticle);
-router.delete("/:id", checkAuth, deleteArticleById);
+router.put("/:id", checkAdminAuth, updateArticle);
+router.delete("/:id", checkAdminAuth, deleteArticleById);
 
 export default router;
