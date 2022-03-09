@@ -17,9 +17,7 @@ server.get("/", (req, res) => {
 		message: "You successfully landed on ATLP-7 App API for Prince Backend",
 	});
 });
-
 server.use(express.json());
-
 // route and version
 server.use("/api/v1/queries", queryRoutes);
 server.use("/api/v1/auth", authRoutes);
