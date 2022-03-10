@@ -17,6 +17,13 @@ server.get("/", (req, res) => {
 		message: "You successfully landed on ATLP-7 App API for Prince Backend",
 	});
 });
+
+server.use("*", (req, res, next) => {
+	res.status(404).json({
+		error: "NOT FOUND",
+	});
+});
+
 server.use(express.json());
 // route and version
 server.use("/api/v1/queries", queryRoutes);
@@ -28,3 +35,5 @@ const port = process.env.PORT;
 server.listen(port || 3000, () => {
 	console.log("Server listening on port " + port);
 });
+
+export default server;
