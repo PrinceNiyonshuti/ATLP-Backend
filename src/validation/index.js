@@ -28,6 +28,7 @@ export const registerValidation = (data) => {
 //New article validation
 export const articleValidation = (data) => {
 	const schema = Joi.object({
+		cover: Joi.string(),
 		title: Joi.string().min(6),
 		slug: Joi.string().min(6),
 		author: Joi.string().min(6),
