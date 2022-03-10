@@ -1,7 +1,7 @@
 /** @format */
 
 import Article from "../db/model/article.model";
-import { fileUpload } from "../helpers/fileUpload";
+import { fileUpload } from "../helpers/multer";
 import { articleValidation } from "../validation/index";
 
 export const saveArticle = async (req, res, next) => {
