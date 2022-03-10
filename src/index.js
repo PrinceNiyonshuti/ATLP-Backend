@@ -18,18 +18,17 @@ server.get("/", (req, res) => {
 	});
 });
 
-server.use("*", (req, res, next) => {
-	res.status(404).json({
-		error: "NOT FOUND",
-	});
-});
-
 server.use(express.json());
 // route and version
 server.use("/api/v1/queries", queryRoutes);
 server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/articles", article);
 server.use("/api/v1/articles", comment);
+server.use("*", (req, res, next) => {
+	res.status(404).json({
+		error: "NOT FOUND",
+	});
+});
 //port number
 const port = process.env.PORT;
 server.listen(port || 3000, () => {

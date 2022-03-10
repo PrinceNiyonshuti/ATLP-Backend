@@ -55,7 +55,7 @@ export const updateArticle = async (req, res) => {
 			.json({ success: false, message: "Article not found" });
 	await Article.findByIdAndUpdate(id, updates);
 	res
-		.status(201)
+		.status(200)
 		.json({ success: true, message: "Article updated successfully" });
 };
 
