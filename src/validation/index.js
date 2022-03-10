@@ -46,3 +46,12 @@ export const commentValidation = (data) => {
 
 	return schema.validate(data);
 };
+
+// New Comment subscriber
+export const subscriberValidation = (data) => {
+	const schema = Joi.object({
+		email: Joi.string().required().email(),
+	});
+
+	return schema.validate(data);
+};

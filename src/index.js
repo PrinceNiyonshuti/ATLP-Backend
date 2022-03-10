@@ -6,6 +6,7 @@ import queryRoutes from "./routes/query.route";
 import authRoutes from "./routes/auth.route";
 import article from "./routes/article.route";
 import comment from "./routes/comment.route";
+import subscriber from "./routes/subscriber.route";
 import "dotenv/config";
 
 const server = express();
@@ -23,6 +24,7 @@ server.use("/api/v1/queries", queryRoutes);
 server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/articles", article);
 server.use("/api/v1/articles", comment);
+server.use("/api/v1/subscribers", subscriber);
 //port number
 const port = process.env.PORT;
 server.listen(port || 3000, () => {
