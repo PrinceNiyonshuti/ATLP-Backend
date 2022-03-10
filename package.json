@@ -6,16 +6,23 @@
 	"author": "npprince47@gmail.com",
 	"license": "MIT",
 	"scripts": {
-		"start:dev": "nodemon --exec babel-node src/index.js",
-		"start": "babel-node src/index.js",
-		"build": "babel src --out-dir dist"
+		"start:dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
+		"start": "cross-env NODE_ENV=prod babel-node src/index.js",
+		"build": "babel src --out-dir dist",
+		"test": "cross-env NODE_ENV=test nyc --reporter=text mocha --recursive --exit --timeout 10000 --require @babel/register"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.17.6",
 		"@babel/core": "^7.17.5",
 		"@babel/node": "^7.16.8",
 		"@babel/preset-env": "^7.16.11",
-		"nodemon": "^2.0.15"
+		"@babel/register": "^7.17.0",
+		"chai": "^4.3.6",
+		"chai-http": "^4.3.0",
+		"cross-env": "^7.0.3",
+		"mocha": "^9.2.1",
+		"nodemon": "^2.0.15",
+		"nyc": "^15.1.0"
 	},
 	"dependencies": {
 		"argon2": "^0.28.5",
