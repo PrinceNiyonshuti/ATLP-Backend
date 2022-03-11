@@ -33,9 +33,16 @@ export const signup = async (req, res) => {
 	user.password = await hash(user.password);
 	const newUser = await new User(user);
 	newUser.save();
+	const userData = {
+		username: newUser.username,
+		role: newUser.role,
+		email: newUser.email,
+		createdAt: newUser.createdAt,
+		_id: newUser._id,
+	};
 	res
 		.status(201)
-		.json({ status: "success", message: "User created", data: newUser });
+		.json({ status: "success", message: "User created", data: userData });
 };
 
 export const login = async (req, res) => {
