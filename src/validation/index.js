@@ -40,8 +40,7 @@ export const articleValidation = (data) => {
 // New Comment validation
 export const commentValidation = (data) => {
 	const schema = Joi.object({
-		name: Joi.string().min(3).required(),
-		email: Joi.string().required().email(),
+		user_id: Joi.string().required(),
 		content: Joi.string().min(6).required(),
 	});
 
