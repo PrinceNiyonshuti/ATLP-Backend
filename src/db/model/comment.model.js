@@ -23,6 +23,10 @@ const CommentSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Article",
 	},
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+	},
 });
 const Comment = mongoose.model("Comment", CommentSchema);
 export default Comment;
