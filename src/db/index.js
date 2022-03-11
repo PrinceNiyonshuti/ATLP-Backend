@@ -15,6 +15,7 @@ const connectionUrl =
 		: environment == "prod"
 		? prod_db_url
 		: test_db_url;
+console.log(connectionUrl);
 mongoose
 	.connect(connectionUrl, {
 		useNewUrlParser: true,

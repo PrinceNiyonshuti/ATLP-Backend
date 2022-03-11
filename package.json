@@ -9,7 +9,7 @@
 		"start:dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
 		"start": "cross-env NODE_ENV=prod babel-node src/index.js",
 		"build": "babel src --out-dir dist",
-		"test": "cross-env NODE_ENV=test nyc --reporter=text mocha --recursive --exit --timeout 10000 --require @babel/register"
+		"test": "cross-env NODE_ENV=test nyc --reporter=text mocha --recursive --exit --timeout 30000 --require @babel/register"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.17.6",
@@ -27,12 +27,16 @@
 	"dependencies": {
 		"argon2": "^0.28.5",
 		"cloudinary": "^1.28.1",
+		"cors": "^2.8.5",
 		"dotenv": "^16.0.0",
 		"express": "^4.17.3",
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.2.4",
-		"multer": "^1.4.4"
+		"morgan": "^1.10.0",
+		"multer": "^1.4.4",
+		"swagger-jsdoc": "^6.1.0",
+		"swagger-ui-express": "^4.3.0"
 	},
 	"engines": {
 		"node": "16.13.0"

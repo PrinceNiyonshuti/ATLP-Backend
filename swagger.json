@@ -1,0 +1,207 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "ATLP-Capstone Project API",
+		"description": "my brand api for Prince",
+		"version": "1.0.0",
+		"contact": {
+			"name": "Prince NIYONSHUTI",
+			"email": "npprince47@gmail.com"
+		}
+	},
+
+	"securityDefinitions": {
+		"Bearer": {
+			"type": "apiKey",
+			"name": "Authorization",
+			"in": "header"
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:5000",
+			"name": "DEV"
+		}
+	],
+
+	"paths": {
+		"/api/v1/auth/signup": {
+			"post": {
+				"tags": ["Authentication"],
+				"summary": "Registration for User | Admin",
+				"description": "Registrations for user's either admin or standard-user",
+				"operationId": "userRegister",
+				"parameters": [
+					{
+						"name": "username",
+						"in": "formData",
+						"type": "string",
+						"description": "user username",
+						"required": true
+					},
+					{
+						"name": "role",
+						"in": "formData",
+						"type": "string",
+						"description": "user role",
+						"required": true
+					},
+					{
+						"name": "email",
+						"in": "formData",
+						"type": "string",
+						"description": "user email",
+						"required": true
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"type": "string",
+						"description": "user password",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/auth/login": {
+			"post": {
+				"tags": ["Authentication"],
+				"summary": "User Login | Admin",
+				"description": "user's login either admin or standard-user",
+				"operationId": "userLogin",
+				"parameters": [
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "user email",
+						"required": true
+					},
+					{
+						"name": "password",
+						"in": "formData",
+						"description": "user password",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/queries": {
+			"post": {
+				"tags": ["Queries"],
+				"summary": "Send a new query",
+				"description": "send quey",
+				"operationId": "send quey",
+				"parameters": [
+					{
+						"name": "name",
+						"in": "formData",
+						"description": "Sender Name",
+						"required": true
+					},
+					{
+						"name": "email",
+						"in": "formData",
+						"description": "email",
+						"required": true
+					},
+					{
+						"name": "subject",
+						"in": "formData",
+						"description": "subject",
+						"required": true
+					},
+					{
+						"name": "content",
+						"in": "formData",
+						"description": "content"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			},
+			"get": {
+				"tags": ["Queries"],
+				"summary": "get all queries",
+				"description": "get all queries",
+				"operationId": "get all queries",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/queries/:id": {
+			"get": {
+				"tags": ["Queries"],
+				"summary": "Get Single Query",
+				"description": "get single query",
+				"operationId": "get single query",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Query Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Queries"],
+				"summary": "get all queries",
+				"description": "delete query",
+				"operationId": "delete query",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Query Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		}
+	}
+}
