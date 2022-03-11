@@ -77,3 +77,17 @@ export const userProfile = (req, res) => {
 
 	return res.status(401).json({ status: "fail", message: "Not Authorized" });
 };
+
+export const updateUserProfile = async (req, res) => {
+	const { id } = req.body;
+	const updates = req.body;
+	const user = await User.findById(id);
+	if (!user)
+		return res
+			.status(404)
+			.json({ success: false, message: "User profile not found" });
+	await User.findByIdAndUpdate(id, updates);
+	res
+		.status(200)
+		.json({ success: true, message: "User profile updated successfully" });
+};
