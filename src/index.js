@@ -24,15 +24,6 @@ server.get("/", (req, res) => {
 });
 
 server.use(express.json());
-// swagger documentation
-server.use(cors());
-server.use(morgan("dev"));
-server.use("/api/v1/", queryRoutes, authRoutes, article, comment, subscriber);
-server.use(
-	"/api-docs",
-	swaggerUi.serve,
-	swaggerUi.setup(swaggerDoc, { explorer: true })
-);
 // route and version
 server.use("/api/v1/queries", queryRoutes);
 server.use("/api/v1/auth", authRoutes);
@@ -44,6 +35,17 @@ server.use("*", (req, res, next) => {
 		error: "NOT FOUND",
 	});
 });
+
+// swagger documentation
+server.use(cors());
+server.use(morgan("dev"));
+server.use("/api/v1/", queryRoutes, authRoutes, article, comment, subscriber);
+server.use(
+	"/api-docs",
+	swaggerUi.serve,
+	swaggerUi.setup(swaggerDoc, { explorer: true })
+);
+
 //port number
 const port = process.env.PORT;
 server.listen(port || 3000, () => {

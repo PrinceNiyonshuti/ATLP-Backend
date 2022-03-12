@@ -14,7 +14,8 @@ describe("Testing Query Endpoints", () => {
 		name: "Prince Dev",
 		email: "prince@gmail.com",
 		subject: "testing data",
-		content:"Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, ",
+		content:
+			"Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, ",
 	};
 	it("Create a query and return success status and data", (done) => {
 		chai
@@ -23,8 +24,8 @@ describe("Testing Query Endpoints", () => {
 			.send(query)
 			.end((err, res) => {
 				if (err) return done(err);
-                expect(res).to.have.status([201]);
-                expect(res.body).to.have.property("status").to.equal("success");
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status").to.equal("success");
 				return done();
 			});
 	});
