@@ -7,6 +7,17 @@ import { articleValidation } from "../validation/index";
 export const saveArticle = async (req, res, next) => {
 	const { error } = articleValidation(req.body);
 	if (error) return res.status(400).json({ message: error.details[0].message });
+
+	let findArticle = await Article.findOne({
+		slug: req.body.slug,
+	});
+
+	if (findArticle)
+		return res.status(400).json({
+			error: true,
+			message: "Slug is already in use",
+		});
+
 	if (req.file) {
 		req.body.image = await fileUpload(req);
 	} else {
@@ -16,9 +27,9 @@ export const saveArticle = async (req, res, next) => {
 	const article = {
 		cover: req.body.image,
 		title: req.body.title,
-		slug: req.body.content,
+		slug: req.body.slug,
 		author: req.body.author,
-		content: req.body.author,
+		content: req.body.content,
 		status: false,
 	};
 	const newArticle = new Article(article);

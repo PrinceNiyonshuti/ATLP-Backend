@@ -12,13 +12,8 @@
 		"license": {
 			"name": "Apache 2.0",
 			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-		},
-		"server": {
-			"url": "http://localhost:5000/api/v1",
-			"description": "Local /Development API Server"
 		}
 	},
-
 	"securityDefinitions": {
 		"Bearer": {
 			"type": "apiKey",
@@ -28,7 +23,7 @@
 	},
 	"servers": [
 		{
-			"url": "http://localhost:5000",
+			"url": "http://localhost:3000",
 			"name": "DEV"
 		}
 	],
@@ -114,27 +109,28 @@
 				"operationId": "send quey",
 				"parameters": [
 					{
-						"name": "name",
-						"in": "formData",
-						"description": "Sender Name",
-						"required": true
-					},
-					{
-						"name": "email",
-						"in": "formData",
-						"description": "email",
-						"required": true
-					},
-					{
-						"name": "subject",
-						"in": "formData",
-						"description": "subject",
-						"required": true
-					},
-					{
-						"name": "content",
-						"in": "formData",
-						"description": "content"
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"email": {
+									"type": "string"
+								},
+								"subject": {
+									"type": "string"
+								},
+								"content": {
+									"type": "string"
+								}
+							},
+							"required": ["name", "email", "subject", "content"]
+						}
 					}
 				],
 				"responses": {
@@ -148,19 +144,19 @@
 				"summary": "get all queries",
 				"description": "get all queries",
 				"operationId": "get all queries",
-				"security": [
-					{
-						"Bearer": []
-					}
-				],
 				"responses": {
 					"201": {
 						"description": "Query Sent Successfully"
 					}
-				}
+				},
+				"security": [
+					{
+						"Bearer": []
+					}
+				]
 			}
 		},
-		"/api/v1/queries/:id": {
+		"/api/v1/queries/{id}": {
 			"get": {
 				"tags": ["Queries"],
 				"summary": "Get Single Query",
@@ -189,9 +185,123 @@
 			},
 			"delete": {
 				"tags": ["Queries"],
-				"summary": "get all queries",
+				"summary": "delete query",
 				"description": "delete query",
 				"operationId": "delete query",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Query Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/articles": {
+			"get": {
+				"tags": ["Articles"],
+				"summary": "Get all articles",
+				"description": "get all articles",
+				"operationId": "get all articles",
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				},
+				"security": [
+					{
+						"Bearer": []
+					}
+				]
+			},
+			"post": {
+				"tags": ["Articles"],
+				"summary": "Create a new article",
+				"description": "New Article",
+				"operationId": "New Article",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"title": {
+									"type": "string"
+								},
+								"slug": {
+									"type": "string"
+								},
+								"author": {
+									"type": "string"
+								},
+								"content": {
+									"type": "string"
+								}
+							},
+							"required": ["name", "email", "subject", "content"]
+						}
+					}
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/articles/{id}": {
+			"get": {
+				"tags": ["Articles"],
+				"summary": "Get Single Article",
+				"description": "get single Article",
+				"operationId": "get single Article",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Article Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Article Sent Successfully"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Articles"],
+				"summary": "Delete Article",
+				"description": "delete article",
+				"operationId": "delete article",
 				"security": [
 					{
 						"Bearer": []
