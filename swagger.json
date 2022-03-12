@@ -33,32 +33,28 @@
 				"operationId": "userRegister",
 				"parameters": [
 					{
-						"name": "username",
-						"in": "formData",
-						"type": "string",
-						"description": "user username",
-						"required": true
-					},
-					{
-						"name": "role",
-						"in": "formData",
-						"type": "string",
-						"description": "user role",
-						"required": true
-					},
-					{
-						"name": "email",
-						"in": "formData",
-						"type": "string",
-						"description": "user email",
-						"required": true
-					},
-					{
-						"name": "password",
-						"in": "formData",
-						"type": "string",
-						"description": "user password",
-						"required": true
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"username": {
+									"type": "string"
+								},
+								"role": {
+									"type": "string"
+								},
+								"email": {
+									"type": "string"
+								},
+								"password": {
+									"type": "string"
+								}
+							},
+							"required": ["username", "role", "email", "password"]
+						}
 					}
 				],
 				"responses": {
@@ -76,16 +72,22 @@
 				"operationId": "userLogin",
 				"parameters": [
 					{
-						"name": "email",
-						"in": "formData",
-						"description": "user email",
-						"required": true
-					},
-					{
-						"name": "password",
-						"in": "formData",
-						"description": "user password",
-						"required": true
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string"
+								},
+								"password": {
+									"type": "string"
+								}
+							},
+							"required": ["email", "password"]
+						}
 					}
 				],
 				"responses": {
