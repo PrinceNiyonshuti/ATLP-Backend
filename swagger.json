@@ -2,11 +2,20 @@
 	"swagger": "2.0",
 	"info": {
 		"title": "ATLP-Capstone Project API",
-		"description": "my brand api for Prince",
+		"description": "The need for professionals to have an online presence and brand in this current age and generation can not be overemphasized. One having a good online presence means quick and easy access to opportunities. It gives prospective customers, employer easy to review your work, experience, and future ambition. While there are various ways and means to build online brands. We believe that having a personal website + blog which one can use to share basic information about them self and also share ideas with their network can have a huge impact on one's career. \n Here is the documentation of the endpoints to be consumed",
 		"version": "1.0.0",
 		"contact": {
-			"name": "Prince NIYONSHUTI",
-			"email": "npprince47@gmail.com"
+			"name": "Prince Niyonshuti",
+			"email": "npprince47@gmail.comcom",
+			"url": "web.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		},
+		"server": {
+			"url": "http://localhost:5000/api/v1",
+			"description": "Local /Development API Server"
 		}
 	},
 
