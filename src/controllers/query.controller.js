@@ -21,7 +21,7 @@ export const getById = async (req, res) => {
 	const { id } = req.params;
 	const query = await Query.findById(id);
 	if (!query)
-		return res.status(204).json({ status: false, message: "Query not found" });
+		return res.status(404).json({ status: false, message: "Query not found" });
 	res.status(201).json({ status: "success", data: query });
 };
 

@@ -2,14 +2,18 @@
 	"swagger": "2.0",
 	"info": {
 		"title": "ATLP-Capstone Project API",
-		"description": "my brand api for Prince",
+		"description": "The need for professionals to have an online presence and brand in this current age and generation can not be overemphasized. One having a good online presence means quick and easy access to opportunities. It gives prospective customers, employer easy to review your work, experience, and future ambition. While there are various ways and means to build online brands. We believe that having a personal website + blog which one can use to share basic information about them self and also share ideas with their network can have a huge impact on one's career. \n Here is the documentation of the endpoints to be consumed",
 		"version": "1.0.0",
 		"contact": {
-			"name": "Prince NIYONSHUTI",
-			"email": "npprince47@gmail.com"
+			"name": "Prince Niyonshuti",
+			"email": "npprince47@gmail.comcom",
+			"url": "web.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
 		}
 	},
-
 	"securityDefinitions": {
 		"Bearer": {
 			"type": "apiKey",
@@ -19,7 +23,7 @@
 	},
 	"servers": [
 		{
-			"url": "http://localhost:5000",
+			"url": "http://localhost:3000",
 			"name": "DEV"
 		}
 	],
@@ -33,32 +37,28 @@
 				"operationId": "userRegister",
 				"parameters": [
 					{
-						"name": "username",
-						"in": "formData",
-						"type": "string",
-						"description": "user username",
-						"required": true
-					},
-					{
-						"name": "role",
-						"in": "formData",
-						"type": "string",
-						"description": "user role",
-						"required": true
-					},
-					{
-						"name": "email",
-						"in": "formData",
-						"type": "string",
-						"description": "user email",
-						"required": true
-					},
-					{
-						"name": "password",
-						"in": "formData",
-						"type": "string",
-						"description": "user password",
-						"required": true
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"username": {
+									"type": "string"
+								},
+								"role": {
+									"type": "string"
+								},
+								"email": {
+									"type": "string"
+								},
+								"password": {
+									"type": "string"
+								}
+							},
+							"required": ["username", "role", "email", "password"]
+						}
 					}
 				],
 				"responses": {
@@ -76,16 +76,22 @@
 				"operationId": "userLogin",
 				"parameters": [
 					{
-						"name": "email",
-						"in": "formData",
-						"description": "user email",
-						"required": true
-					},
-					{
-						"name": "password",
-						"in": "formData",
-						"description": "user password",
-						"required": true
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string"
+								},
+								"password": {
+									"type": "string"
+								}
+							},
+							"required": ["email", "password"]
+						}
 					}
 				],
 				"responses": {
@@ -103,27 +109,28 @@
 				"operationId": "send quey",
 				"parameters": [
 					{
-						"name": "name",
-						"in": "formData",
-						"description": "Sender Name",
-						"required": true
-					},
-					{
-						"name": "email",
-						"in": "formData",
-						"description": "email",
-						"required": true
-					},
-					{
-						"name": "subject",
-						"in": "formData",
-						"description": "subject",
-						"required": true
-					},
-					{
-						"name": "content",
-						"in": "formData",
-						"description": "content"
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"email": {
+									"type": "string"
+								},
+								"subject": {
+									"type": "string"
+								},
+								"content": {
+									"type": "string"
+								}
+							},
+							"required": ["name", "email", "subject", "content"]
+						}
 					}
 				],
 				"responses": {
@@ -137,19 +144,19 @@
 				"summary": "get all queries",
 				"description": "get all queries",
 				"operationId": "get all queries",
-				"security": [
-					{
-						"Bearer": []
-					}
-				],
 				"responses": {
 					"201": {
 						"description": "Query Sent Successfully"
 					}
-				}
+				},
+				"security": [
+					{
+						"Bearer": []
+					}
+				]
 			}
 		},
-		"/api/v1/queries/:id": {
+		"/api/v1/queries/{id}": {
 			"get": {
 				"tags": ["Queries"],
 				"summary": "Get Single Query",
@@ -178,9 +185,123 @@
 			},
 			"delete": {
 				"tags": ["Queries"],
-				"summary": "get all queries",
+				"summary": "delete query",
 				"description": "delete query",
 				"operationId": "delete query",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Query Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/articles": {
+			"get": {
+				"tags": ["Articles"],
+				"summary": "Get all articles",
+				"description": "get all articles",
+				"operationId": "get all articles",
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				},
+				"security": [
+					{
+						"Bearer": []
+					}
+				]
+			},
+			"post": {
+				"tags": ["Articles"],
+				"summary": "Create a new article",
+				"description": "New Article",
+				"operationId": "New Article",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"title": {
+									"type": "string"
+								},
+								"slug": {
+									"type": "string"
+								},
+								"author": {
+									"type": "string"
+								},
+								"content": {
+									"type": "string"
+								}
+							},
+							"required": ["name", "email", "subject", "content"]
+						}
+					}
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/articles/{id}": {
+			"get": {
+				"tags": ["Articles"],
+				"summary": "Get Single Article",
+				"description": "get single Article",
+				"operationId": "get single Article",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Article Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Article Sent Successfully"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Articles"],
+				"summary": "Delete Article",
+				"description": "delete article",
+				"operationId": "delete article",
 				"security": [
 					{
 						"Bearer": []

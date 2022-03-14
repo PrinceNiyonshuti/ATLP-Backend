@@ -19,12 +19,12 @@ export const signup = async (req, res) => {
 	});
 
 	if (user) {
-		return res.status(400).json({
+		return res.status(201).json({
 			error: true,
 			message: "Username is already taken",
 		});
 	} else if (userMail) {
-		return res.status(400).json({
+		return res.status(201).json({
 			error: true,
 			message: "Email is already taken",
 		});

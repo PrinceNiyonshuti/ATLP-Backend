@@ -30,11 +30,6 @@ server.use("/api/v1/auth", authRoutes);
 server.use("/api/v1/articles", article);
 server.use("/api/v1/articles", comment);
 server.use("/api/v1/subscribers", subscriber);
-server.use("*", (req, res, next) => {
-	res.status(404).json({
-		error: "NOT FOUND",
-	});
-});
 
 // swagger documentation
 server.use(cors());
@@ -45,6 +40,12 @@ server.use(
 	swaggerUi.serve,
 	swaggerUi.setup(swaggerDoc, { explorer: true })
 );
+
+server.use("*", (req, res, next) => {
+	res.status(404).json({
+		error: "NOT FOUND",
+	});
+});
 
 //port number
 const port = process.env.PORT;
