@@ -40,9 +40,20 @@ export const signup = async (req, res) => {
 		createdAt: newUser.createdAt,
 		_id: newUser._id,
 	};
-	res
-		.status(201)
-		.json({ status: "success", message: "User created", data: userData });
+	const token = signToken(
+		JSON.stringify({
+			_id: userData._id,
+			username: userData.username,
+			role: userData.role,
+			email: userData.email,
+		})
+	);
+	res.status(201).json({
+		status: "success",
+		message: "Account created",
+		data: userData,
+		token,
+	});
 };
 
 export const login = async (req, res) => {
