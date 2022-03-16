@@ -14,7 +14,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDoc from "../swagger.json";
 
 const server = express();
-
+server.use(cors());
 // default route
 server.get("/", (req, res) => {
 	res.status(200).json({
@@ -32,7 +32,6 @@ server.use("/api/v1/articles", comment);
 server.use("/api/v1/subscribers", subscriber);
 
 // swagger documentation
-server.use(cors());
 server.use(morgan("dev"));
 server.use("/api/v1/", queryRoutes, authRoutes, article, comment, subscriber);
 server.use(
