@@ -71,12 +71,22 @@ export const login = async (req, res) => {
 			.json({ status: false, message: "Invalid email or password" });
 
 	const { _id, username, role } = user;
+	const userData = {
+		username: user.username,
+		role: user.role,
+		email: user.email,
+		createdAt: user.createdAt,
+		_id: user._id,
+	};
 	const token = signToken(
 		JSON.stringify({ _id, username, role, email: user.email })
 	);
-	return res
-		.status(200)
-		.json({ status: "success", message: "successfully logged in", token });
+	return res.status(200).json({
+		status: "success",
+		message: "successfully logged in",
+		data: userData,
+		token,
+	});
 };
 
 export const userProfile = (req, res) => {
