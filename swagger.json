@@ -297,6 +297,56 @@
 					}
 				}
 			},
+			"put": {
+				"tags": ["Articles"],
+				"summary": "Update Article",
+				"description": "Update article",
+				"operationId": "Update article",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Article Id",
+						"required": true
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"title": {
+									"type": "string"
+								},
+								"slug": {
+									"type": "string"
+								},
+								"author": {
+									"type": "string"
+								},
+								"content": {
+									"type": "string"
+								}
+							},
+							"required": ["name", "email", "subject", "content"]
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			},
 			"delete": {
 				"tags": ["Articles"],
 				"summary": "Delete Article",
@@ -313,8 +363,203 @@
 						"name": "id",
 						"in": "path",
 						"type": "string",
-						"description": "Query Id",
+						"description": "Article Id",
 						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/articles/{id}/comment": {
+			"get": {
+				"tags": ["Comments"],
+				"summary": "Get all comments",
+				"description": "get all comments",
+				"operationId": "get all comments",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Article Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				},
+				"security": [
+					{
+						"Bearer": []
+					}
+				]
+			},
+			"post": {
+				"tags": ["Comments"],
+				"summary": "Post a new comment",
+				"description": "New comment",
+				"operationId": "New comment",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Article Id",
+						"required": true
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"content": {
+									"type": "string"
+								}
+							},
+							"required": ["content"]
+						}
+					}
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/articles/comment/{id}": {
+			"get": {
+				"tags": ["Comments"],
+				"summary": "Get Single comment",
+				"description": "get single comment",
+				"operationId": "get single comment",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Comment Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Article Sent Successfully"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Comments"],
+				"summary": "Delete comment",
+				"description": "delete comment",
+				"operationId": "delete comment",
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"description": "Comment Id",
+						"required": true
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			}
+		},
+		"/api/v1/subscribers": {
+			"get": {
+				"tags": ["Subscribe to newsletter"],
+				"summary": "Get all subscribers",
+				"description": "get all subscribers",
+				"operationId": "get all subscribers",
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				},
+				"security": [
+					{
+						"Bearer": []
+					}
+				]
+			},
+			"post": {
+				"tags": ["Subscribe to newsletter"],
+				"summary": "Subscribe to our newsletter",
+				"description": "Subscribe to our newsletter",
+				"operationId": "New subscriber",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string"
+								}
+							},
+							"required": ["email"]
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Query Sent Successfully"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Subscribe to newsletter"],
+				"summary": "Un-Subscribe to our newsletter",
+				"description": "Un-Subscribe to our newsletter",
+				"operationId": "New subscriber",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Resource payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string"
+								}
+							},
+							"required": ["email"]
+						}
 					}
 				],
 				"responses": {

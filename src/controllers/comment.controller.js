@@ -33,6 +33,17 @@ export const getAllComments = async (req, res) => {
 	res.status(200).json({ status: "success", data: getComment.comments });
 };
 
+export const getSingleComment = async (req, res) => {
+	const { id } = req.params;
+	const comment = await Comment.findById(id);
+	if (!comment)
+		return res
+			.status(204)
+			.json({ status: false, message: "Comment not found" });
+	res
+		.status(201)
+		.json({ status: "success", message: "Comment found", data: comment });
+};
 export const deleteComment = async (req, res) => {
 	const { id } = req.params;
 	const comment = await Comment.findById(id);
