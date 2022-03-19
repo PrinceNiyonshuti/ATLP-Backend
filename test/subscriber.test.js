@@ -7,9 +7,7 @@ import mongoose from "mongoose";
 
 chai.use(chaiHttp);
 let token = "";
-let queryId = "";
 let delId = "";
-
 //sign up
 describe("POST API /api/v1/auth/signup", () => {
 	before(() => {
@@ -119,30 +117,20 @@ describe("POST API /api/v1/auth/login", () => {
 	});
 });
 
-// Queries
-describe("POST API /api/v1/queries", () => {
+// subscribing
+describe("POST API /api/v1/subscribers", () => {
 	before(() => {
-		mongoose.connection.dropCollection("queries");
+		mongoose.connection.dropCollection("subscribers");
 	});
-	const query = {
-		name: "Prince Dev",
-		email: "prince@gmail.com",
-		subject: "testing data",
-		content:
-			"Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, ",
+	const subscriber = {
+		email: "andela@gmail.com",
 	};
-	it("Should return Query validation", (done) => {
-		const fakeQuery = {
-			name: "Prince Dev",
-			email: "princegmail.com",
-			subject: "testing data",
-			content:
-				"Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, ",
-		};
+	it("Should return Email validation", (done) => {
+		const fakeMail = "testgmail.com";
 		chai
 			.request(index)
-			.post("/api/v1/queries")
-			.send(fakeQuery)
+			.post("/api/v1/subscribers")
+			.send(fakeMail)
 			.end((err, res) => {
 				if (err) return done(err);
 				expect(res).to.have.status([400]);
@@ -150,154 +138,108 @@ describe("POST API /api/v1/queries", () => {
 				return done();
 			});
 	});
-	it("Should return success status and data", (done) => {
+	it("Should return success and subscriber data", (done) => {
 		chai
 			.request(index)
-			.post("/api/v1/queries")
-			.send(query)
+			.post("/api/v1/subscribers")
+			.send(subscriber)
 			.end((err, res) => {
 				if (err) return done(err);
 				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("status").to.equal("success");
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("data");
 				return done();
 			});
 	});
-	it("Should return not Not Authorized , please login ", (done) => {
+	it("Should return Sorry , you are already subscribed to our newsletter", (done) => {
 		chai
 			.request(index)
-			.get("/api/v1/queries")
+			.post("/api/v1/subscribers")
+			.send(subscriber)
 			.end((err, res) => {
 				if (err) return done(err);
-				expect(res).to.have.status([401]);
-				expect(res.body).to.have.property("status").to.equal("fail");
-				expect(res.body)
-					.to.have.property("message")
-					.to.equal("Not Authorized , please login");
+				expect(res).to.have.status([400]);
+				expect(res.body).to.have.property("error");
+				expect(res.body).to.have.property("message");
 				return done();
 			});
 	});
 });
 
-describe("GET API /api/v1/queries", () => {
-	before(() => {
-		mongoose.connection.dropCollection("queries");
-	});
-	const query = {
-		name: "Prince Dev",
-		email: "prince@gmail.com",
-		subject: "testing data",
-		content:
-			"Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, ",
-	};
-	it("Should return success status and data", (done) => {
+describe("GET API /api/v1/subscribers", () => {
+	it("Should return success and subscriber data", (done) => {
 		chai
 			.request(index)
-			.post("/api/v1/queries")
-			.send(query)
-			.end((err, res) => {
-				if (err) return done(err);
-				queryId = res.body.data._id;
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("status").to.equal("success");
-				return done();
-			});
-	});
-	it("Should return all queries  ", (done) => {
-		chai
-			.request(index)
-			.get("/api/v1/queries")
-			.set("Authorization", `Bearer ${token}`)
-			.send()
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("status").to.equal("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-	it("Should return Query not found  ", (done) => {
-		const fakeId = "1229b52ca50601182da72457";
-		chai
-			.request(index)
-			.get("/api/v1/queries/" + fakeId)
-			.set("Authorization", `Bearer ${token}`)
-			.send()
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([404]);
-				expect(res.body).to.have.property("status");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-	it("Should return single query ", (done) => {
-		const qId = queryId;
-		chai
-			.request(index)
-			.get("/api/v1/queries/" + qId)
-			.set("Authorization", `Bearer ${token}`)
-			.send()
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("status");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-});
-
-describe("DELETE API /api/v1/queries/{:id}", () => {
-	before(() => {
-		mongoose.connection.dropCollection("queries");
-	});
-	const query = {
-		name: "Prince Dev",
-		email: "prince@gmail.com",
-		subject: "testing data",
-		content:
-			"Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, ",
-	};
-	it("Should return success status and data", (done) => {
-		chai
-			.request(index)
-			.post("/api/v1/queries")
-			.send(query)
-			.end((err, res) => {
-				if (err) return done(err);
-				delId = res.body.data._id;
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("status").to.equal("success");
-				return done();
-			});
-	});
-	it("Should return Query not found  ", (done) => {
-		const fakeId = "1229b52ca50601182da72457";
-		chai
-			.request(index)
-			.delete("/api/v1/queries/" + fakeId)
-			.set("Authorization", `Bearer ${token}`)
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([404]);
-				expect(res.body).to.have.property("status");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-	it("Should return Query deleted  ", (done) => {
-		const artDelId = delId;
-		chai
-			.request(index)
-			.delete("/api/v1/queries/" + artDelId)
+			.get("/api/v1/subscribers")
 			.set("Authorization", `Bearer ${token}`)
 			.send()
 			.end((err, res) => {
 				if (err) return done(err);
 				expect(res).to.have.status([200]);
-				expect(res.body).to.have.property("status");
-				expect(res.body).to.have.property("message").to.equal("Query deleted");
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+});
+
+describe("DELETE API /api/v1/subscribers", () => {
+	before(() => {
+		mongoose.connection.dropCollection("subscribers");
+	});
+	const subscriber = {
+		email: "andela@gmail.com",
+	};
+	it("Should return success and subscriber data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/subscribers")
+			.send(subscriber)
+			.end((err, res) => {
+				if (err) return done(err);
+				delId = res.body.data._id;
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+	it("Should return Email validation", (done) => {
+		const fakeMail = "testgmail.com";
+		chai
+			.request(index)
+			.delete("/api/v1/subscribers")
+			.send(fakeMail)
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([400]);
+				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+	it("Should return Successfully unsubscribed from our newsletter", (done) => {
+		chai
+			.request(index)
+			.delete("/api/v1/subscribers")
+			.send(subscriber)
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([200]);
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+	it("Should return No record found for your email", (done) => {
+		chai
+			.request(index)
+			.delete("/api/v1/subscribers")
+			.send(subscriber)
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([404]);
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("message");
 				return done();
 			});
 	});
