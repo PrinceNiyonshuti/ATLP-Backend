@@ -54,7 +54,6 @@ export const getById = async (req, res) => {
 
 export const updateArticle = async (req, res) => {
 	const { id } = req.params;
-
 	const { error } = articleValidation(req.body);
 	if (error) return res.status(400).json({ message: error.details[0].message });
 

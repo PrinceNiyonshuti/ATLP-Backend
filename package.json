@@ -9,7 +9,7 @@
 		"start:dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
 		"start": "cross-env NODE_ENV=prod babel-node src/index.js",
 		"build": "babel src --out-dir dist",
-		"test": "cross-env NODE_ENV=test nyc --reporter=text mocha --recursive --exit --timeout 30000 --require @babel/register"
+		"test": "cross-env NODE_ENV=test nyc --reporter=text mocha --recursive --exit --timeout 40000 --require @babel/register"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.17.6",
