@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 
 chai.use(chaiHttp);
 let token = "";
+let userId = "";
 //sign up
 describe("POST API /api/v1/auth/signup", () => {
 	before(() => {
@@ -59,6 +60,7 @@ describe("POST API /api/v1/auth/signup", () => {
 	});
 });
 
+// Sign in
 describe("POST API /api/v1/auth/login", () => {
 	const user = {
 		email: "prince@gmail.com",
@@ -124,12 +126,13 @@ describe("GET API /api/v1/auth/user-profile", () => {
 			.set("Authorization", `Bearer ${token}`)
 			.end((err, res) => {
 				if (err) return done(err);
+				// userId = res.body.data._id;
 				expect(res.status).to.be.eql(200);
 				return done();
 			});
 	});
-    it("Should return Not Authorized", (done) => {
-        let fakeToken = "testing";
+	it("Should return Not Authorized", (done) => {
+		let fakeToken = "testing";
 		chai
 			.request(index)
 			.get("/api/v1/auth/user-profile")
