@@ -115,7 +115,7 @@ describe("POST API /api/v1/articles", () => {
 				return done();
 			});
 	});
-	it("Should return success and subscriber data", (done) => {
+	it("Should return success and Article data", (done) => {
 		chai
 			.request(index)
 			.post("/api/v1/articles")
