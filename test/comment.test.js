@@ -179,7 +179,7 @@ describe("GET API /api/v1/articles/{:id}/comment", () => {
 	const comment = {
 		content: "thanks for this article with the user data",
 	};
-	it("Should return success and subscriber data", (done) => {
+	it("Should return success and article data", (done) => {
 		chai
 			.request(index)
 			.post("/api/v1/articles")

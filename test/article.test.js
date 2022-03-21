@@ -311,7 +311,7 @@ describe("DELETE API /api/v1/articles/{:id}", () => {
 		author: "Prince Dev",
 		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
 	};
-	it("Should return success and subscriber data", (done) => {
+	it("Should return success and article data", (done) => {
 		chai
 			.request(index)
 			.post("/api/v1/articles")
