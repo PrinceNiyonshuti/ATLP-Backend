@@ -38,7 +38,7 @@ export const getSingleComment = async (req, res) => {
 	const comment = await Comment.findById(id);
 	if (!comment)
 		return res
-			.status(204)
+			.status(404)
 			.json({ status: false, message: "Comment not found" });
 	res
 		.status(201)
@@ -49,7 +49,7 @@ export const deleteComment = async (req, res) => {
 	const comment = await Comment.findById(id);
 	if (!comment)
 		return res
-			.status(204)
+			.status(404)
 			.json({ status: false, message: "Comment not found" });
 	await Comment.findByIdAndDelete(id);
 	res
