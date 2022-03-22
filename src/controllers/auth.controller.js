@@ -112,3 +112,9 @@ export const updateUserProfile = async (req, res) => {
 		.status(200)
 		.json({ success: true, message: "User profile updated successfully" });
 };
+
+export const getAllUsers = async (req, res) => {
+	const users = await User.find();
+
+	res.status(201).json({ status: "success", data: users });
+};
