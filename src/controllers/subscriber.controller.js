@@ -37,7 +37,7 @@ export const unsubscribeToNewsletter = async (req, res) => {
 	if (!subscriber)
 		return res
 			.status(404)
-			.json({ success: false, message: "No record found for your email" });
+			.json({ success: false, message: "No records found for your email" });
 	await Subscriber.findByIdAndDelete(subscriber.id);
 	res.status(200).json({
 		success: true,
