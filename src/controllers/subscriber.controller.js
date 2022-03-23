@@ -34,14 +34,13 @@ export const unsubscribeToNewsletter = async (req, res) => {
 	let subscriber = await Subscriber.findOne({
 		email: req.body.email,
 	});
-	if (subscriber) {
-		await Subscriber.findByIdAndDelete(subscriber.id);
-		res.status(200).json({
-			success: true,
-			message: "Successfully unsubscribed from our newsletter",
-		});
-	}
-	return res
-		.status(404)
-		.json({ success: false, message: "No record found for your email" });
+	if (!subscriber)
+		return res
+			.status(404)
+			.json({ success: false, message: "No records found for your email" });
+	await Subscriber.findByIdAndDelete(subscriber.id);
+	res.status(200).json({
+		success: true,
+		message: "Successfully unsubscribed from our newsletter",
+	});
 };

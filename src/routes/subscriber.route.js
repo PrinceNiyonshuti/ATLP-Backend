@@ -12,6 +12,6 @@ const router = express.Router();
 
 router.post("/", subscribeToNewsletter);
 router.get("/", checkAdminAuth, getAllSubscribers);
-router.delete("/", unsubscribeToNewsletter);
+router.post("/remove", unsubscribeToNewsletter);
 
 export default router;

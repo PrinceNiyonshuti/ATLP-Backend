@@ -17,7 +17,7 @@ export const saveComment = async (req, res) => {
 
 	const newComment = await Comment.create({
 		content: req.body.content,
-		blogPost: articleId,
+		articlePost: articleId,
 		owner: req.currentUser._id,
 	});
 	const articlePost = await Article.findById(articleId);
@@ -29,10 +29,14 @@ export const saveComment = async (req, res) => {
 
 export const getAllComments = async (req, res) => {
 	const articleId = req.params.id;
-	const getComment = await Article.findById(articleId).populate("comments");
+	//	const getComment = await Article.findById(articleId).populate("comments");
+	const getAllComment = await Comment.find({ articlePost: articleId }).populate(
+		"owner"
+	);
 	res.status(200).json({
 		status: "success",
-		data: getComment.comments,
+		// data: getComment.comments,
+		data: getAllComment,
 	});
 };
 
