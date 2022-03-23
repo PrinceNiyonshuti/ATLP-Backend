@@ -30,7 +30,10 @@ export const saveComment = async (req, res) => {
 export const getAllComments = async (req, res) => {
 	const articleId = req.params.id;
 	const getComment = await Article.findById(articleId).populate("comments");
-	res.status(200).json({ status: "success", data: getComment.comments });
+	res.status(200).json({
+		status: "success",
+		data: getComment.comments,
+	});
 };
 
 export const getSingleComment = async (req, res) => {
@@ -38,7 +41,7 @@ export const getSingleComment = async (req, res) => {
 	const comment = await Comment.findById(id);
 	if (!comment)
 		return res
-			.status(204)
+			.status(404)
 			.json({ status: false, message: "Comment not found" });
 	res
 		.status(201)
@@ -49,7 +52,7 @@ export const deleteComment = async (req, res) => {
 	const comment = await Comment.findById(id);
 	if (!comment)
 		return res
-			.status(204)
+			.status(404)
 			.json({ status: false, message: "Comment not found" });
 	await Comment.findByIdAndDelete(id);
 	res

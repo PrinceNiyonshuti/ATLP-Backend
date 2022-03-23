@@ -19,6 +19,12 @@ describe("POST API /api/v1/auth/signup", () => {
 		role: "admin",
 		password: "password",
 	};
+	const user2 = {
+		username: "Prince Dev 1",
+		email: "prince@gmail.com",
+		role: "admin",
+		password: "password",
+	};
 	it("It should successfully create an account and return 201", (done) => {
 		chai
 			.request(index)
@@ -30,20 +36,6 @@ describe("POST API /api/v1/auth/signup", () => {
 				return done();
 			});
 	});
-	it("Should return 201 when email exists", (done) => {
-		const oldMail = user.email;
-		chai
-			.request(index)
-			.post("/api/v1/auth/signup")
-			.send(user)
-			.end((err, res) => {
-				if (oldMail) return done(err);
-				expect(res.status).to.be.equal(201);
-				expect(res).to.have.property("error");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
 	it("Should return 201 when username exists", (done) => {
 		const oldUSername = user.username;
 		chai
@@ -52,6 +44,20 @@ describe("POST API /api/v1/auth/signup", () => {
 			.send(user)
 			.end((err, res) => {
 				if (oldUSername) return done(err);
+				expect(res.status).to.be.equal(201);
+				expect(res).to.have.property("error");
+				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+	it("Should return 201 when email exists", (done) => {
+		const oldMail = user.email;
+		chai
+			.request(index)
+			.post("/api/v1/auth/signup")
+			.send(user2)
+			.end((err, res) => {
+				if (oldMail) return done(err);
 				expect(res.status).to.be.equal(201);
 				expect(res).to.have.property("error");
 				expect(res.body).to.have.property("message");

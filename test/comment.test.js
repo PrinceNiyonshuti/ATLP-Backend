@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 chai.use(chaiHttp);
 let token = "";
 let articleId = "";
+let commentId = "";
 let delId = "";
 
 //sign up
@@ -85,10 +86,13 @@ describe("POST API /api/v1/auth/login", () => {
 	});
 });
 
-// articles
-describe("POST API /api/v1/articles", () => {
+// Comments
+describe("POST API /api/v1/articles/{:id}/comment", () => {
 	before(() => {
 		mongoose.connection.dropCollection("articles");
+	});
+	before(() => {
+		mongoose.connection.dropCollection("comments");
 	});
 	const article = {
 		title: "testing article",
@@ -96,164 +100,8 @@ describe("POST API /api/v1/articles", () => {
 		author: "Prince Dev",
 		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
 	};
-	it("Should return Article validation", (done) => {
-		const fakeArticle = {
-			title: "",
-			slug: "",
-			author: "",
-			content: "",
-		};
-		chai
-			.request(index)
-			.post("/api/v1/articles")
-			.set("Authorization", `Bearer ${token}`)
-			.send(fakeArticle)
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([400]);
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-	it("Should return success and Article data", (done) => {
-		chai
-			.request(index)
-			.post("/api/v1/articles")
-			.set("Authorization", `Bearer ${token}`)
-			.send(article)
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-	it("Should return Slug is already in use", (done) => {
-		chai
-			.request(index)
-			.post("/api/v1/articles")
-			.set("Authorization", `Bearer ${token}`)
-			.send(article)
-			.end((err, res) => {
-				if (err) return done(err);
-				// expect(res).to.have.status([400]);
-				expect(res.body).to.have.property("error");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-});
-
-describe("GET API /api/v1/articles", () => {
-	before(() => {
-		mongoose.connection.dropCollection("articles");
-	});
-	const article = {
-		title: "testing article",
-		slug: "testing-article",
-		author: "Prince Dev",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-	};
-	it("Should return success and article data", (done) => {
-		chai
-			.request(index)
-			.post("/api/v1/articles")
-			.set("Authorization", `Bearer ${token}`)
-			.send(article)
-			.end((err, res) => {
-				if (err) return done(err);
-				// expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-	it("Should return all articles", (done) => {
-		chai
-			.request(index)
-			.get("/api/v1/articles")
-			.send()
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([200]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-});
-
-describe("GET API /api/v1/articles/{:id}", () => {
-	before(() => {
-		mongoose.connection.dropCollection("articles");
-	});
-	const article = {
-		title: "testing article",
-		slug: "testing-article",
-		author: "Prince Dev",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-	};
-	it("Should return success and article data", (done) => {
-		chai
-			.request(index)
-			.post("/api/v1/articles")
-			.set("Authorization", `Bearer ${token}`)
-			.send(article)
-			.end((err, res) => {
-				if (err) return done(err);
-				articleId = res.body.data._id;
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-	it("Should return all single article", (done) => {
-		chai
-			.request(index)
-			.get("/api/v1/articles/" + articleId)
-			.send()
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([200]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-
-	it("Should return Article not found", (done) => {
-		const fakeId = "1229b52ca50601182da72457";
-		chai
-			.request(index)
-			.get("/api/v1/articles/" + fakeId)
-			.send()
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([404]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-});
-
-describe("PUT API /api/v1/articles/{:id}", () => {
-	before(() => {
-		mongoose.connection.dropCollection("articles");
-	});
-	const article = {
-		title: "testing article",
-		slug: "testing-article",
-		author: "Prince Dev",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-	};
-	const updateArticle = {
-		title: "testing article",
-		slug: "testing-article",
-		author: "Prince Dev",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+	const comment = {
+		content: "thanks for this article with the user data",
 	};
 	it("Should return success and subscriber data", (done) => {
 		chai
@@ -274,9 +122,9 @@ describe("PUT API /api/v1/articles/{:id}", () => {
 		const fakeId = "1229b52ca50601182da72457";
 		chai
 			.request(index)
-			.put("/api/v1/articles/" + fakeId)
+			.post("/api/v1/articles/" + fakeId + "/comment")
 			.set("Authorization", `Bearer ${token}`)
-			.send(updateArticle)
+			.send(comment)
 			.end((err, res) => {
 				if (err) return done(err);
 				expect(res).to.have.status([404]);
@@ -285,31 +133,51 @@ describe("PUT API /api/v1/articles/{:id}", () => {
 				return done();
 			});
 	});
-	it("Should return Article updated successfully", (done) => {
+	it("Should return Comment Validation Error ", (done) => {
+		const fakeContent = "";
 		chai
 			.request(index)
-			.put("/api/v1/articles/" + articleId)
+			.post("/api/v1/articles/" + articleId + "/comment")
 			.set("Authorization", `Bearer ${token}`)
-			.send(updateArticle)
+			.send(fakeContent)
 			.end((err, res) => {
 				if (err) return done(err);
-				// expect(res).to.have.status([200]);
-				expect(res.body).to.have.property("success");
+				expect(res).to.have.status([400]);
 				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+	it("Should return success and comment data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/articles/" + articleId + "/comment")
+			.set("Authorization", `Bearer ${token}`)
+			.send(comment)
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("data");
 				return done();
 			});
 	});
 });
 
-describe("DELETE API /api/v1/articles/{:id}", () => {
+describe("GET API /api/v1/articles/{:id}/comment", () => {
 	before(() => {
 		mongoose.connection.dropCollection("articles");
+	});
+	before(() => {
+		mongoose.connection.dropCollection("comments");
 	});
 	const article = {
 		title: "testing article",
 		slug: "testing-article",
 		author: "Prince Dev",
 		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+	};
+	const comment = {
+		content: "thanks for this article with the user data",
 	};
 	it("Should return success and article data", (done) => {
 		chai
@@ -319,24 +187,188 @@ describe("DELETE API /api/v1/articles/{:id}", () => {
 			.send(article)
 			.end((err, res) => {
 				if (err) return done(err);
-				delId = res.body.data._id;
+				articleId = res.body.data._id;
 				expect(res).to.have.status([201]);
 				expect(res.body).to.have.property("success");
 				expect(res.body).to.have.property("data");
 				return done();
 			});
 	});
-	it("Should return Article not found", (done) => {
+	it("Should return success and comment data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/articles/" + articleId + "/comment")
+			.set("Authorization", `Bearer ${token}`)
+			.send(comment)
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+	it("Should return All Comments", (done) => {
+		chai
+			.request(index)
+			.get("/api/v1/articles/" + articleId + "/comment")
+			.send()
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([200]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+});
+
+describe("GET API /api/v1/articles/comment", () => {
+	before(() => {
+		mongoose.connection.dropCollection("articles");
+	});
+	before(() => {
+		mongoose.connection.dropCollection("comments");
+	});
+	const article = {
+		title: "testing article",
+		slug: "testing-article",
+		author: "Prince Dev",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+	};
+	const comment = {
+		content: "thanks for this article with the user data",
+	};
+	it("Should return success and subscriber data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/articles")
+			.set("Authorization", `Bearer ${token}`)
+			.send(article)
+			.end((err, res) => {
+				if (err) return done(err);
+				articleId = res.body.data._id;
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+	it("Should return success and comment data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/articles/" + articleId + "/comment")
+			.set("Authorization", `Bearer ${token}`)
+			.send(comment)
+			.end((err, res) => {
+				if (err) return done(err);
+				commentId = res.body.data._id;
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+	it("Should return Comment not found", (done) => {
 		const fakeId = "1229b52ca50601182da72457";
 		chai
 			.request(index)
-			.delete("/api/v1/articles/" + fakeId)
+			.get("/api/v1/articles/comment/" + fakeId)
+			.send()
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([404]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+	it("Should return Comment found", (done) => {
+		chai
+			.request(index)
+			.get("/api/v1/articles/comment/" + commentId)
+			.send()
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+});
+
+describe("DELETE API /api/v1/articles/comment", () => {
+	before(() => {
+		mongoose.connection.dropCollection("articles");
+	});
+	before(() => {
+		mongoose.connection.dropCollection("comments");
+	});
+	const article = {
+		title: "testing article",
+		slug: "testing-article",
+		author: "Prince Dev",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+	};
+	const comment = {
+		content: "thanks for this article with the user data",
+	};
+	it("Should return success and subscriber data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/articles")
+			.set("Authorization", `Bearer ${token}`)
+			.send(article)
+			.end((err, res) => {
+				if (err) return done(err);
+				articleId = res.body.data._id;
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+	it("Should return success and comment data", (done) => {
+		chai
+			.request(index)
+			.post("/api/v1/articles/" + articleId + "/comment")
+			.set("Authorization", `Bearer ${token}`)
+			.send(comment)
+			.end((err, res) => {
+				if (err) return done(err);
+				commentId = res.body.data._id;
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("data");
+				return done();
+			});
+	});
+	it("Should return Comment not found", (done) => {
+		const fakeId = "1229b52ca50601182da72457";
+		chai
+			.request(index)
+			.delete("/api/v1/articles/comment/" + fakeId)
 			.set("Authorization", `Bearer ${token}`)
 			.send()
 			.end((err, res) => {
 				if (err) return done(err);
 				expect(res).to.have.status([404]);
-				expect(res.body).to.have.property("success");
+				expect(res.body).to.have.property("status");
+				expect(res.body).to.have.property("message");
+				return done();
+			});
+	});
+	it("Should return Comment deleted", (done) => {
+		chai
+			.request(index)
+			.delete("/api/v1/articles/comment/" + commentId)
+			.set("Authorization", `Bearer ${token}`)
+			.send()
+			.end((err, res) => {
+				if (err) return done(err);
+				expect(res).to.have.status([201]);
+				expect(res.body).to.have.property("status");
 				expect(res.body).to.have.property("message");
 				return done();
 			});
