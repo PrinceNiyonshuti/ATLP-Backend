@@ -15,6 +15,7 @@ export const saveComment = async (req, res) => {
 	const { error } = commentValidation(req.body);
 	if (error) return res.status(400).json({ message: error.details[0].message });
 
+
 	const newComment = await Comment.create({
 		content: req.body.content,
 		articlePost: articleId,
