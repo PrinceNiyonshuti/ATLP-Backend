@@ -44,20 +44,3 @@ export const unsubscribeToNewsletter = async (req, res) => {
 		message: "Successfully unsubscribed from our newsletter",
 	});
 };
-
-export const getSubscriber = async (req, res) => {
-	let subscriber = await Subscriber.findOne({
-		email: req.params.id,
-	});
-	if (!subscriber) {
-		return res.status(400).json({
-			error: true,
-			message: "Sorry , have no active subscription",
-		});
-	} else {
-		return res.status(201).json({
-			success: true,
-			message: "you have active subscription",
-		});
-	}
-};
