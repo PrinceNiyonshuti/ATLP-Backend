@@ -36,3 +36,10 @@ $ yarn start:dev
 or
 $ npm run start:dev
 ```
+### for testing
+
+```
+$ yarn test
+or
+$ npm run test
+```
