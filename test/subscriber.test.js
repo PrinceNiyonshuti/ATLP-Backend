@@ -183,64 +183,64 @@ describe("GET API /api/v1/subscribers", () => {
 	});
 });
 
-describe("DELETE API /api/v1/subscribers", () => {
-	before(() => {
-		mongoose.connection.dropCollection("subscribers");
-	});
-	const subscriber = {
-		email: "andela@gmail.com",
-	};
-	it("Should return success and subscriber data", (done) => {
-		chai
-			.request(index)
-			.post("/api/v1/subscribers")
-			.send(subscriber)
-			.end((err, res) => {
-				if (err) return done(err);
-				delId = res.body.data._id;
-				expect(res).to.have.status([201]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("data");
-				return done();
-			});
-	});
-	it("Should return Email validation", (done) => {
-		const fakeMail = "testgmail.com";
-		chai
-			.request(index)
-			.delete("/api/v1/subscribers")
-			.send(fakeMail)
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([400]);
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-	it("Should return Successfully unsubscribed from our newsletter", (done) => {
-		chai
-			.request(index)
-			.delete("/api/v1/subscribers")
-			.send(subscriber)
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([200]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-	it("Should return No record found for your email", (done) => {
-		chai
-			.request(index)
-			.delete("/api/v1/subscribers")
-			.send(subscriber)
-			.end((err, res) => {
-				if (err) return done(err);
-				expect(res).to.have.status([404]);
-				expect(res.body).to.have.property("success");
-				expect(res.body).to.have.property("message");
-				return done();
-			});
-	});
-});
+// describe("DELETE API /api/v1/subscribers", () => {
+// 	before(() => {
+// 		mongoose.connection.dropCollection("subscribers");
+// 	});
+// 	const subscriber = {
+// 		email: "andela@gmail.com",
+// 	};
+// 	it("Should return success and subscriber data", (done) => {
+// 		chai
+// 			.request(index)
+// 			.post("/api/v1/subscribers")
+// 			.send(subscriber)
+// 			.end((err, res) => {
+// 				if (err) return done(err);
+// 				delId = res.body.data._id;
+// 				expect(res).to.have.status([201]);
+// 				expect(res.body).to.have.property("success");
+// 				expect(res.body).to.have.property("data");
+// 				return done();
+// 			});
+// 	});
+// 	it("Should return Email validation", (done) => {
+// 		const fakeMail = "testgmail.com";
+// 		chai
+// 			.request(index)
+// 			.delete("/api/v1/subscribers")
+// 			.send(fakeMail)
+// 			.end((err, res) => {
+// 				if (err) return done(err);
+// 				expect(res).to.have.status([400]);
+// 				expect(res.body).to.have.property("message");
+// 				return done();
+// 			});
+// 	});
+// 	it("Should return Successfully unsubscribed from our newsletter", (done) => {
+// 		chai
+// 			.request(index)
+// 			.delete("/api/v1/subscribers")
+// 			.send(subscriber)
+// 			.end((err, res) => {
+// 				if (err) return done(err);
+// 				expect(res).to.have.status([200]);
+// 				expect(res.body).to.have.property("success");
+// 				expect(res.body).to.have.property("message");
+// 				return done();
+// 			});
+// 	});
+// 	it("Should return No record found for your email", (done) => {
+// 		chai
+// 			.request(index)
+// 			.delete("/api/v1/subscribers")
+// 			.send(subscriber)
+// 			.end((err, res) => {
+// 				if (err) return done(err);
+// 				expect(res).to.have.status([404]);
+// 				expect(res.body).to.have.property("success");
+// 				expect(res.body).to.have.property("message");
+// 				return done();
+// 			});
+// 	});
+// });
